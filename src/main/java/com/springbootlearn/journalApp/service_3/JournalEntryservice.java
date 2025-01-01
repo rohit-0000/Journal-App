@@ -5,8 +5,6 @@ import com.springbootlearn.journalApp.entity_2.User;
 import com.springbootlearn.journalApp.repository_4.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+//@Component
 @Component
 @Service
 public class JournalEntryservice {
@@ -35,7 +34,7 @@ public class JournalEntryservice {
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
             user.getJournalEntries().add(saved);
-            user.setUserName(null); // it is just to check @Transactional
+//            user.setUserName(null); // it is just to check @Transactional
             userservice.saveUser(user);
         }
         catch (Exception e)
@@ -56,12 +55,24 @@ public class JournalEntryservice {
     {
         journalEntryRepository.deleteById(myId);
     }
-    public void deleteById(ObjectId myId,String userName)
+    @Transactional
+    public boolean deleteById(ObjectId id,String userName)
     {
-        User user=userservice.findByUserName(userName);
-        user.getJournalEntries().removeIf(x->x.getId().equals(myId));
-        userservice.saveUser(user);
-        journalEntryRepository.deleteById(myId);
+        boolean removed=false;
+        try {
+            User user = userservice.findByUserName(userName);
+            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+            if (removed) {
+                userservice.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            throw new RuntimeException("An error occured while deleting the entry");
+        }
+        return removed;
     }
 }
 // service call repository

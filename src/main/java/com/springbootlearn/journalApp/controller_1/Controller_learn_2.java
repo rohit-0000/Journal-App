@@ -2,6 +2,7 @@ package com.springbootlearn.journalApp.controller_1;
 
 import com.springbootlearn.journalApp.entity_2.JournalEntry;
 import com.springbootlearn.journalApp.service_3.JournalEntryservice;
+import com.springbootlearn.journalApp.service_3.Userservice;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class Controller_learn_2 {
     @Autowired
     private JournalEntryservice journalEntryservice;
+//    private Userservice.JournalEntryservice journalEntryservice;
 
     @GetMapping
     public ResponseEntity<?> getAll(){ //localhost:8080/journalNEW

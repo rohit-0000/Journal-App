@@ -1,22 +1,20 @@
 package com.springbootlearn.journalApp;
 
-import com.springbootlearn.journalApp.repository_4.JournalEntryRepository;
+import com.springbootlearn.journalApp.entity_2.JournalEntry;
+import org.bson.types.ObjectId;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
-import org.springframework.data.mongodb.config.MongoDbFactoryParser;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootApplication
 @EnableTransactionManagement//  it search for all @Transactional method
 public class JournalApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(JournalApplication.class, args);
 	}
@@ -42,11 +40,11 @@ public class JournalApplication {
 //using @RestController automatically converts the returned data into JSON format.
 
 //Atlas :
-//username:- rohit_atlas
+//username:-rohit_atlas
 //Password:-Rohitatlas2004#$@
 
 //NEW
 //    rohit20040121
-//	   v8vQIH5EvoGEAMl2
+//	  v8vQIH5EvoGEAMl2
 
 //mongodb+srv://rohit20040121:v8vQIH5EvoGEAMl2@cluster0.rhfh6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
